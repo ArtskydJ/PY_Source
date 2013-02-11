@@ -5,87 +5,42 @@
 #--- http://projecteuler.net/problem=4 ---
 #
 #Find the largest palindrome made from the product of two 3-digit numbers.
+#
+# 5 or 6 digits
 
-def palindrome(x):
-    return True
-####    a=(x%10);
-####    b=((x%100)-a)/10;
-####    c=((x%1000)-b-a)/100;
-####    d=((x%10000)-c-b-a)/1000;
-####    e=((x%100000)-d-c-b-a)/10000;
-####    if (a==e && b==d)
-####      cout << "That's a palindrome!" << endl;
-####    else
-####      cout << "That's no palindrome!" << endl;
-####    //cout << "E=" << e << ", D=" << d << ", C=" << c << ", B=" << b << ", A=" << a;
+def palindrome(inx,ini,inj):
+    ret=False
+    a= (inx%10)
+    b=((inx%100)            -a)//10
+    c=((inx%1000)         -b-a)//100
+    d=((inx%10000)      -c-b-a)//1000
+    e=((inx%100000)   -d-c-b-a)//10000
+    f=((inx%1000000)-e-d-c-b-a)//100000
+    #if (b==f and c==e and a==0) or (a==f and b==e and c==d and f!=0):
+    if (inx>=1000  and inx<=10000  and a==d and b==c)\
+    or (inx>=10000 and inx<=100000 and a==e and b==d)\
+    or (inx>=100000 and       a==f and b==e and c==d):
+        ret=True
+        print("palindrome:",inx,"=",ini,"*",inj)
+    #print("A=",a," B=",b," C=",c," D=",d," E=",e," F=",f)
+    return ret
 
 x=0
-for i in range(10,99):
-    for j in range(10,99):
-        if palindrome(i*j) :
-            if (i*j)>x :
-                x=(i*j)
-
-
-
-####//Exercise 4.26 Palindrome Finder
-#####include <iostream>
-####//#include <iomanip>
-####using namespace std;
-####int a,b,c,d,e,x;
-####int main()
-####{
-####  cout << "Type a 5 digit number.\nI will check if it is a palindrome.\n";
-####  cin >> x;
-####  if (9999<x<100000)
-####    {
-####    a=(x%10);
-####    b=((x%100)-a)/10;
-####    c=((x%1000)-b-a)/100;
-####    d=((x%10000)-c-b-a)/1000;
-####    e=((x%100000)-d-c-b-a)/10000;
-####    if (a==e && b==d)
-####      cout << "That's a palindrome!" << endl;
-####    else
-####      cout << "That's no palindrome!" << endl;
-####    //cout << "E=" << e << ", D=" << d << ", C=" << c << ", B=" << b << ", A=" << a;
-####    }
-####  else
-####    {
-####    cout << "A 5 digit number you knucklehead!";
-####    }
-####  return a;
-####}
-
-
-####//Exercise 4.26 Number reverser
-#####include <iostream>
-####//#include <iomanip>
-####using namespace std;
-####int a[8];
-####int b,c=0,t,x,y;
-####int main()
-####  {
-####  cout << "Enter number: ";
-####  cin >> x;
-####  if (x<100000000)
-####    {
-####    b=0;
-####    for (int n=1; n<x; n*=10)
-####      {
-####      a[b]=(((x%(n*10))-c)/n);
-####      c+=a[b];
-####      b++;
-####      }
-####    for  (int n=0; n<b; n++)
-####      {
-####      cout << a[n];
-####      }
-####    cout << endl;
-####    }
-####  else
-####    {
-####    cout << "Too big.";
-####    y=0;
-####    }
-####  }
+y=0
+i=10
+j=10
+ei=0
+ej=0
+lo=800
+hi=999
+for i in range(hi,lo,-1):
+    for j in range(hi,lo,-1):
+        y=i*j
+        #print(y)
+        if palindrome(y,i,j):
+            if y>x:
+                ei=i
+                ej=j
+                x=y
+print("-----")
+print(x,"=",ei,"*",ej)
