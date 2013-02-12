@@ -24,6 +24,8 @@ def divisors2(num):
                 break
     return divs
 
+print("Do not close this window!!!")
+
 i=1
 tri=1
 printing=False
